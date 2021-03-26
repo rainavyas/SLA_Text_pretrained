@@ -6,7 +6,7 @@ class BERTGrader(nn.Module):
     '''
     BERT encoder, multihead attention and regression head
     '''
-    def __init__(self, h1_dim=600, h2_dim=20, embedding_size=786):
+    def __init__(self, h1_dim=600, h2_dim=20, embedding_size=768):
         super().__init__()
         self.encoder = BertModel.from_pretrained('bert-base-uncased')
 
