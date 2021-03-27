@@ -34,7 +34,7 @@ class BERTGrader(nn.Module):
         '''
         output = self.encoder(input_ids, attention_mask)
         word_embeddings = output.last_hidden_state
-
+        
         head1_embeddings = self._apply_attn(word_embeddings, attention_mask, self.attn1)
         head2_embeddings = self._apply_attn(word_embeddings, attention_mask, self.attn2)
         head3_embeddings = self._apply_attn(word_embeddings, attention_mask, self.attn3)
@@ -52,7 +52,7 @@ class BERTGrader(nn.Module):
         Self-attention variant to get sentence embedding
         '''
         transformed_values = weights_transformation(embeddings)
-        score = torch.inner(embeddings, transformed_values)
+        score = torch.einsum('ijk,ijk->ij', embeddings, transformed_values)
         T = nn.Tanh()
         score_T = T(score) * mask
         # use mask to convert padding scores to -inf (go to zero after softmax)
