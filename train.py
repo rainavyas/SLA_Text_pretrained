@@ -79,7 +79,7 @@ if __name__ == "__main__":
     commandLineParser.add_argument('TRAIN_GRADES', type=str, help='training data grades')
     commandLineParser.add_argument('TEST_GRADES', type=str, help='test data grades')
     commandLineParser.add_argument('--B', type=int, default=16, help="Specify batch size")
-    commandLineParser.add_argument('--epochs', type=int, default=4, help="Specify epochs")
+    commandLineParser.add_argument('--epochs', type=int, default=3, help="Specify epochs")
     commandLineParser.add_argument('--lr', type=float, default=0.00001, help="Specify learning rate")
     commandLineParser.add_argument('--sch', type=int, default=10, help="Specify scheduler param")
     commandLineParser.add_argument('--seed', type=int, default=1, help="Specify seed")
