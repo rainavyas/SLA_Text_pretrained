@@ -35,10 +35,10 @@ class BERTGrader(nn.Module):
         output = self.encoder(input_ids, attention_mask)
         word_embeddings = output.last_hidden_state
         
-        head1_embeddings = self._apply_attn(word_embeddings, attention_mask, self.attn1)
-        head2_embeddings = self._apply_attn(word_embeddings, attention_mask, self.attn2)
-        head3_embeddings = self._apply_attn(word_embeddings, attention_mask, self.attn3)
-        head4_embeddings = self._apply_attn(word_embeddings, attention_mask, self.attn4)
+        head1 = self._apply_attn(word_embeddings, attention_mask, self.attn1)
+        head2 = self._apply_attn(word_embeddings, attention_mask, self.attn2)
+        head3 = self._apply_attn(word_embeddings, attention_mask, self.attn3)
+        head4 = self._apply_attn(word_embeddings, attention_mask, self.attn4)
 
         all_heads = torch.cat((head1, head2, head3, head4), dim=1)
 
