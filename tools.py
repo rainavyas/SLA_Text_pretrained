@@ -21,7 +21,6 @@ def calculate_pcc(y_pred_useful, y):
     vy = y - torch.mean(y)
     vyp = y_pred_useful - torch.mean(y_pred_useful)
     pcc = 1/((size-1)*torch.std(vy) *torch.std(vyp))*(torch.sum(vy*vyp))
-    pcc = pcc.item()
     return pcc
 
 
