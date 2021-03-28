@@ -38,7 +38,7 @@ def get_single_stats(all_preds, targets):
     for preds in all_preds:
         mses.append(calculate_mse(torch.FloatTensor(preds), torch.FloatTensor(targets)))
         pccs.append(calculate_pcc(torch.FloatTensor(preds), torch.FloatTensor(targets)))
-        avgs.append(calculate_avg(torch.FloatTensor(preds), torch.FloatTensor(targets)))
+        avgs.append(calculate_avg(torch.FloatTensor(preds)))
         less05s.append(calculate_less05(torch.FloatTensor(preds), torch.FloatTensor(targets)))
         less1s.append(calculate_less1(torch.FloatTensor(preds), torch.FloatTensor(targets)))
 
@@ -63,7 +63,7 @@ def get_ensemble_stats(all_preds, targets):
 
     mse = calculate_mse(ensemble_preds, torch.FloatTensor(targets))
     pcc = calculate_pcc(ensemble_preds, torch.FloatTensor(targets))
-    avg = calculate_avg(ensemble_preds, torch.FloatTensor(targets))
+    avg = calculate_avg(ensemble_preds)
     less05 = calculate_less05(ensemble_preds, torch.FloatTensor(targets))
     less1 = calculate_less1(ensemble_preds, torch.FloatTensor(targets))
 
