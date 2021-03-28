@@ -8,6 +8,8 @@ def get_default_device():
         print("No CUDA found")
         return torch.device('cpu')
 
+def calculate_avg(x):
+    return torch.mean(x)
 
 def calculate_mse(x1, x2):
     squared_error = (x2-x1)**2
