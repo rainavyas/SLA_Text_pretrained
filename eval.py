@@ -35,8 +35,8 @@ def eval(val_loader, model, device):
             # update all stats
             mses.update(calculate_mse(pred, target).item(), id.size(0))
             pccs.update(calculate_pcc(pred, target).item(), id.size(0))
-            less05s.update(calculate_less05(pred, target).item(), id.size(0))
-            less1s.update(calculate_less1(pred, target).item(), id.size(0))
+            less05s.update(calculate_less05(pred, target), id.size(0))
+            less1s.update(calculate_less1(pred, target), id.size(0))
             avgs.update(calculate_avg(pred).item(), id.size(0))
 
     return mses.avg, pccs.avg, less05s.avg, less1s.avg, avgs.avg
