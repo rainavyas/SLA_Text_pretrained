@@ -96,14 +96,14 @@ if __name__ == "__main__":
 
     # Load the data as tensors
     input_ids_test, mask_test, labels_test = get_data(test_data_file, test_grades_files)
-
+    
     # Filter by grades
     grades_filtered = labels_test >= grade_lim
     ind = grades_filtered.nonzero()
 
-    input_ids_test = input_ids_test[ind]
-    mask_test = mask_test[ind]
-    labels_test = labels_test[ind]
+    input_ids_test = input_ids_test[ind].squeeze()
+    mask_test = mask_test[ind].squeeze()
+    labels_test = labels_test[ind].squeeze()
 
     test_ds = TensorDataset(input_ids_test, mask_test, labels_test)
     test_dl = DataLoader(test_ds, batch_size=batch_size)
