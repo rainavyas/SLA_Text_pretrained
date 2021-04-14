@@ -102,6 +102,7 @@ if __name__ == "__main__":
     rmses = []
     rmses_ref = []
     ref = calculate_mse(torch.FloatTensor(predsA), torch.FloatTensor(targets)).item()
+    ref = ref ** 0.5
 
     for k in np.linspace(0, 6, 60):
         preds = apply_hierarchal(predsA, predsB, thresh=k)
