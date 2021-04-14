@@ -66,6 +66,9 @@ if __name__ == "__main__":
 
     # Load the data as tensors
     input_ids_test, mask_test, labels_test = get_data(test_data_file, test_grades_files)
+    test_ds = TensorDataset(input_ids_test, mask_test, labels_test)
+    test_dl = DataLoader(test_ds, batch_size=batch_size)
+
 
     # Load the models
     modelsA = []
