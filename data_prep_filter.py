@@ -10,7 +10,7 @@ def align(spk_to_utt, grade_dict, grade_lim):
     utts = []
     for id in spk_to_utt:
         try:
-            if grade_dict[id]>grade_lim:
+            if grade_dict[id]>=grade_lim:
                 grades.append(grade_dict[id])
                 utts.append(spk_to_utt[id])
         except:
