@@ -100,6 +100,8 @@ if __name__ == "__main__":
 
     ks = []
     rmses = []
+    rmses_ref = []
+    ref = calculate_mse(torch.FloatTensor(predsA), torch.FloatTensor(targets)).item()
 
     for k in np.linspace(0, 6, 60):
         preds = apply_hierarchal(predsA, predsB, thresh=k)
@@ -107,10 +109,12 @@ if __name__ == "__main__":
         rmse = mse**0.5
         ks.append(k)
         rmses.append(rmse)
+        rmses_ref.append(ref)
 
     # Plot
     filename = 'rmse_vs_k.png'
     plt.plot(ks, rmses)
+    plt.plot(ks, rmses_ref)
     plt.xlabel("Threshold")
     plt.ylabel("RMSE")
     plt.savefig(filename)
