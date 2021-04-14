@@ -23,7 +23,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from eval_ensemble import eval
 
-def get_ensemble_preds(all_preds, targets):
+def get_ensemble_preds(all_preds):
     y_sum = torch.zeros(len(all_preds[0]))
     for preds in all_preds:
         y_sum += torch.FloatTensor(preds)
@@ -52,7 +52,7 @@ if __name__ == "__main__":
     args = commandLineParser.parse_args()
     model_pathsA = args.MODELSA
     model_pathsA = model_pathsA.split()
-    model_pathsB = args.MODELSA
+    model_pathsB = args.MODELSB
     model_pathsB = model_pathsB.split()
     test_data_file = args.TEST_DATA
     test_grades_files = args.TEST_GRADES
@@ -95,8 +95,8 @@ if __name__ == "__main__":
         preds, targets = eval(test_dl, model)
         all_predsB.append(preds)
 
-    predsA = get_ensemble_preds(all_predsA, targets)
-    predsB = get_ensemble_preds(all_predsB, targets)
+    predsA = get_ensemble_preds(all_predsA)
+    predsB = get_ensemble_preds(all_predsB)
 
     ks = []
     rmses = []
