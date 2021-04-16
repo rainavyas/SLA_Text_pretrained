@@ -114,9 +114,10 @@ if __name__ == "__main__":
 
     # Plot
     filename = 'rmse_vs_k.png'
-    plt.plot(ks, rmses)
-    plt.plot(ks, rmses_ref)
+    plt.plot(ks, rmses_ref, label="Baseline")
+    plt.plot(ks, rmses, label="Hierarchical")
     plt.xlabel("Threshold")
     plt.ylabel("RMSE")
+    plt.legend()
     plt.savefig(filename)
     plt.clf()
