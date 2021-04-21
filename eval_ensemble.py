@@ -78,6 +78,7 @@ if __name__ == "__main__":
     commandLineParser.add_argument('TEST_DATA', type=str, help='prepped test data file')
     commandLineParser.add_argument('TEST_GRADES', type=str, help='test data grades')
     commandLineParser.add_argument('--B', type=int, default=16, help="Specify batch size")
+    commandLineParser.add_argument('--part', type=int, default=3, help="Specify part of exam")
 
     args = commandLineParser.parse_args()
     model_paths = args.MODELS
@@ -85,6 +86,7 @@ if __name__ == "__main__":
     test_data_file = args.TEST_DATA
     test_grades_files = args.TEST_GRADES
     batch_size = args.B
+    part=args.part
 
     # Save the command run
     if not os.path.isdir('CMDs'):
@@ -93,7 +95,7 @@ if __name__ == "__main__":
         f.write(' '.join(sys.argv)+'\n')
 
     # Load the data as tensors
-    input_ids_test, mask_test, labels_test = get_data(test_data_file, test_grades_files)
+    input_ids_test, mask_test, labels_test = get_data(test_data_file, test_grades_files, part=part)
     test_ds = TensorDataset(input_ids_test, mask_test, labels_test)
     test_dl = DataLoader(test_ds, batch_size=batch_size)
 

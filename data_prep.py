@@ -61,12 +61,13 @@ def tokenize_text(utts):
     return ids, mask
 
 
-def get_data(data_file, grades_file):
+def get_data(data_file, grades_file, part=3):
     '''
     Prepare data as tensors
+    part=6 gives overall grades
     '''
     spk_to_utt = get_spk_to_utt(data_file)
-    grade_dict = get_spk_to_grade(grades_file)
+    grade_dict = get_spk_to_grade(grades_file, part)
     utts, grades = align(spk_to_utt, grade_dict)
     ids, mask = tokenize_text(utts)
     labels = torch.FloatTensor(grades)
