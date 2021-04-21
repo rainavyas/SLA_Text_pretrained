@@ -8,7 +8,7 @@ import sys
 import os
 import argparse
 from tools import AverageMeter, calculate_mse, calculate_pcc, calculate_less1, calculate_less05
-from eval_ensemble import get_ensemble_stats, get_single_stats
+from eval_ensemble import get_ensemble_stats, get_single_stats, eval
 
 if __name__ == "__main__":
 
@@ -54,6 +54,7 @@ if __name__ == "__main__":
             model.load_state_dict(torch.load(model_path))
             models.append(model)
 
+        targets = None
         all_preds = []
 
         for model in models:
