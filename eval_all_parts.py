@@ -54,7 +54,6 @@ if __name__ == "__main__":
             model.load_state_dict(torch.load(model_path))
             models.append(model)
 
-        targets = None
         all_preds = []
 
         for model in models:
