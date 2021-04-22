@@ -19,6 +19,7 @@ if __name__ == "__main__":
     commandLineParser.add_argument('TEST_GRADES', type=str, help='test data grades')
     commandLineParser.add_argument('--B', type=int, default=16, help="Specify batch size")
     commandLineParser.add_argument('--grade_lim', type=float, default=4.0, help="Specify minimum accepted grade")
+    commandLineParser.add_argument('--filter', type=bool, default=True, help="Specify if 4.0 filtered models to be loaded from dir")
 
     args = commandLineParser.parse_args()
     models_dir = args.MODELS_DIR
@@ -26,6 +27,7 @@ if __name__ == "__main__":
     test_grades_files = args.TEST_GRADES
     batch_size = args.B
     grade_lim = args.grade_lim
+    filter = args.filter
 
     # Save the command run
     if not os.path.isdir('CMDs'):
@@ -51,7 +53,10 @@ if __name__ == "__main__":
         # Load the models
         models = []
         for seed in range(1,6):
-            model_path = models_dir + '/bert_part'+str(part)+'_seed'+str(seed)+'.th'
+            if filter:
+                model_path = models_dir + '/bert_part'+str(part)+'_seed'+str(seed)+'_filter4.0.th'
+            else:
+                model_path = models_dir + '/bert_part'+str(part)+'_seed'+str(seed)+'.th'
             model = BERTGrader()
             model.load_state_dict(torch.load(model_path))
             models.append(model)
