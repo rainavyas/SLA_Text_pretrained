@@ -94,7 +94,7 @@ if __name__ == "__main__":
     rmses_ref = []
     rmses_baseline = []
     baseline = calculate_mse(stage1_preds, labels).item()
-    baseline = ref ** 0.5
+    baseline = baseline ** 0.5
 
     for k in np.linspace(0, 6, 60):
         preds = apply_hierarchal(stage1_preds, stage2_preds, thresh=k)
