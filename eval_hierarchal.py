@@ -39,6 +39,18 @@ def apply_hierarchal(preds_stage1, preds_stage2, thresh=4.0):
             preds.append(predB.item())
     return preds
 
+def apply_hierarchal_ref(preds_stage1, preds_stage2, labels, thresh=4.0):
+    '''
+    Filter by true label
+    '''
+    preds = []
+    for predA, predB, lab in zip(preds_stage1, preds_stage2, labels):
+        if lab < thresh:
+            preds.append(predA.item())
+        else:
+            preds.append(predB.item())
+    return preds
+
 if __name__ == "__main__":
 
     # Get command line arguments
@@ -103,21 +115,27 @@ if __name__ == "__main__":
     ks = []
     rmses = []
     rmses_ref = []
-    ref = calculate_mse(torch.FloatTensor(predsA), torch.FloatTensor(targets)).item()
-    ref = ref ** 0.5
+    rmses_baseline = []
+    baseline = calculate_mse(torch.FloatTensor(predsA), torch.FloatTensor(targets)).item()
+    baseline = baseline ** 0.5
 
     for k in np.linspace(0, 6, 60):
         preds = apply_hierarchal(predsA, predsB, thresh=k)
         mse = calculate_mse(torch.FloatTensor(preds), torch.FloatTensor(targets)).item()
         rmse = mse**0.5
+        preds_ref = apply_hierarchal_ref(predsA, predsB, torch.FloatTensor(targets), thresh=k)
+        mse_ref = calculate_mse(torch.FloatTensor(preds_ref), labels).item()
+        rmse_ref = mse_ref**0.5
         ks.append(k)
         rmses.append(rmse)
-        rmses_ref.append(ref)
+        rmses_baseline.append(baseline)
+        rmses_ref.append(rmse_ref)
 
     # Plot
     filename = 'rmse_vs_k.png'
-    plt.plot(ks, rmses_ref, label="Baseline")
+    plt.plot(ks, rmses_baseline, label="Baseline")
     plt.plot(ks, rmses, label="Hierarchical")
+    plt.plot(ks, rmse_ref, label="Reference")
     plt.xlabel("Threshold")
     plt.ylabel("RMSE")
     plt.legend()

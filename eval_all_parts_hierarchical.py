@@ -9,7 +9,7 @@ import os
 import argparse
 from tools import calculate_mse
 from eval_ensemble import eval
-from eval_hierarchal import apply_hierarchal
+from eval_hierarchal import apply_hierarchal, apply_hierarchal_ref
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -92,21 +92,27 @@ if __name__ == "__main__":
     ks = []
     rmses = []
     rmses_ref = []
-    ref = calculate_mse(stage1_preds, labels).item()
-    ref = ref ** 0.5
+    rmses_baseline = []
+    baseline = calculate_mse(stage1_preds, labels).item()
+    baseline = ref ** 0.5
 
     for k in np.linspace(0, 6, 60):
         preds = apply_hierarchal(stage1_preds, stage2_preds, thresh=k)
         mse = calculate_mse(torch.FloatTensor(preds), labels).item()
         rmse = mse**0.5
+        preds_ref = apply_hierarchal_ref(stage1_preds, stage2_preds, labels, thresh=k)
+        mse_ref = calculate_mse(torch.FloatTensor(preds_ref), labels).item()
+        rmse_ref = mse_ref**0.5
         ks.append(k)
         rmses.append(rmse)
-        rmses_ref.append(ref)
+        rmses_baseline.append(baseline)
+        rmses_ref.append(rmse_ref)
 
     # Plot
     filename = 'all_parts_rmse_vs_k.png'
-    plt.plot(ks, rmses_ref, label="Baseline")
+    plt.plot(ks, rmses_baseline, label="Baseline")
     plt.plot(ks, rmses, label="Hierarchical")
+    plt.plot(ks, rmse_ref, label="Reference")
     plt.xlabel("Threshold")
     plt.ylabel("RMSE")
     plt.legend()
