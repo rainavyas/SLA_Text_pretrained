@@ -7,7 +7,7 @@ from data_prep_all import get_data
 import sys
 import os
 import argparse
-from tools import AverageMeter, calculate_mse, calculate_pcc, calculate_less1, calculate_less05
+from tools import AverageMeter, calculate_mse, calculate_pcc, calculate_less1, calculate_less05, calculate_avg
 from eval_ensemble import get_ensemble_stats, get_single_stats, eval
 
 if __name__ == "__main__":
