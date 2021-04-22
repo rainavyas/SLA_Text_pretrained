@@ -3,7 +3,7 @@ import torch.nn as nn
 from torch.utils.data import TensorDataset
 from torch.utils.data import DataLoader
 from models import BERTGrader
-from data_prep_all import get_data
+from data_prep_all_filter import get_data
 import sys
 import os
 import argparse
