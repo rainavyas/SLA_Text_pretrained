@@ -16,6 +16,7 @@ import numpy as np
 def get_all_parts_avg_preds(part_data_list, models_dir, filter=False):
     part_preds = []
     for part in range(1,6):
+        print("On part", part)
 
         # Specify the data as tensors
         part_data = part_data_list[part-1]
