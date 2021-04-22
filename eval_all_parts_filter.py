@@ -27,7 +27,7 @@ if __name__ == "__main__":
     test_grades_files = args.TEST_GRADES
     batch_size = args.B
     grade_lim = args.grade_lim
-    filter = bool(args.filter)
+    filter = args.filter
 
     # Save the command run
     if not os.path.isdir('CMDs'):
@@ -53,7 +53,7 @@ if __name__ == "__main__":
         # Load the models
         models = []
         for seed in range(1,6):
-            if filter:
+            if filter == 'True':
                 model_path = models_dir + '/bert_part'+str(part)+'_seed'+str(seed)+'_filter4.0.th'
                 print("Load filtered model")
             else:
