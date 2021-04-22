@@ -10,6 +10,8 @@ import argparse
 from tools import calculate_mse
 from eval_ensemble import eval
 from eval_hierarchal import apply_hierarchal
+import matplotlib.pyplot as plt
+import numpy as np
 
 def get_all_parts_avg_preds(part_data_list, models_dir, filter=False):
     part_preds = []
