@@ -135,7 +135,7 @@ if __name__ == "__main__":
     filename = 'rmse_vs_k.png'
     plt.plot(ks, rmses_baseline, label="Baseline")
     plt.plot(ks, rmses, label="Hierarchical")
-    plt.plot(ks, rmse_ref, label="Reference")
+    plt.plot(ks, rmses_ref, label="Reference")
     plt.xlabel("Threshold")
     plt.ylabel("RMSE")
     plt.legend()
