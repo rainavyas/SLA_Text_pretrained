@@ -55,8 +55,10 @@ if __name__ == "__main__":
         for seed in range(1,6):
             if filter:
                 model_path = models_dir + '/bert_part'+str(part)+'_seed'+str(seed)+'_filter4.0.th'
+                print("Load filtered model")
             else:
                 model_path = models_dir + '/bert_part'+str(part)+'_seed'+str(seed)+'.th'
+                print("Load unfiltered model")
             model = BERTGrader()
             model.load_state_dict(torch.load(model_path))
             models.append(model)
